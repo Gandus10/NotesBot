@@ -10,7 +10,7 @@ ou d'une matière. L'utilisateur peut ajouter ses notes en indicant
 'le nom du cours/sa note/la pondération'. Il peut demander sa moyenne en indicant
 moyenne 'nom du module' ou 'moyenne non du cours'
 
-Auteur
-------
+Auteurs
+-------
 
 Laurent Gander, Sylvain Renaud
