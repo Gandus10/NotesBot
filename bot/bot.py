@@ -18,7 +18,7 @@ HEARTBEAT_ACK = 11
 
 last_sequence = None
 """Global variable holding the sequence number of messages."""
-token = MzEyMTcwNTgzMTA0NDIxODkw.C_72kA._bH0bFDqebVIYXyOowS0NPf_S4k
+token = None
 """Global variable holding the token... (very ugly)."""  # XXX
 
 
