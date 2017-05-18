@@ -41,7 +41,7 @@ async def consume(ws, get, fut):
         msg = f"{data['repository']['name']}: {data['status_message']}!"
         # XXX this is quite hard coded.
         print(msg)
-        asyncio.ensure_future(send_message(309734242085109760, msg))
+        asyncio.ensure_future(send_message(312170583104421890, msg))
 
 
 async def send_message(channel, content):
