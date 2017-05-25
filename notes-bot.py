@@ -1,4 +1,4 @@
-"""Bot exemple qui répond à @greut."""
+"""Bot exemple qui retourne les moyennes du cours donnés."""
 
 import asyncio
 import json
@@ -84,19 +84,26 @@ async def start(ws):
                     last_sequence = data['s']
                     if data['t'] == "MESSAGE_CREATE":
                         print(data['d'])
-                        if data['d']['author']['username'] == 'Laurent Gander':
-                            task = asyncio.ensure_future(send_message(data['d']['author']['id'],
-                                                                      data['d']['content']))
+                        #if data['d']['author']['username'] == 'Laurent Gander':
+                        if data['d']['content'] == 'note':
+                            task = asyncio.ensure_future(send_message(data['d']['author']['id'],'Tu as deux, tu es nul'))
 
-                            if data['d']['content'] == 'quit':
-                                print('Bye bye!')
-                                # On l'attend l'envoi du message ci-dessus.
-                                await asyncio.wait([task])
-                                break
+                        if data['d']['content'] == 'quit':
+                            task = asyncio.ensure_future(send_message(data['d']['author']['id'],'Bye bye'))
+                            # On l'attend l'envoi du message ci-dessus.
+                            await asyncio.wait([task])
+                            break
                     else:
                         print('Todo?', data['t'])
                 else:
                     print("Unknown?", data)
+
+
+def readFile(name):
+    
+
+
+def writeFile(name, content):
 
 
 async def main():
