@@ -61,6 +61,7 @@ async def identify(ws):
                               'compress': True,  # implique le bout de code lié à zlib, pas nécessaire.
                               'large_threshold': 250}})
 
+
 async def start(ws):
     """Lance le bot sur l'adresse Web Socket donnée."""
     global last_sequence  # global est nécessaire pour modifier la variable
@@ -74,7 +75,6 @@ async def start(ws):
                 else:
                     print("?", msg.tp)
 
-                # https://discordapp.com/developers/docs/topics/gateway#gateway-op-codes
                 if data['op'] == 10:  # Hello
                     asyncio.ensure_future(heartbeat(ws, data['d']['heartbeat_interval']))
                     await identify(ws)
@@ -84,8 +84,8 @@ async def start(ws):
                     last_sequence = data['s']
                     if data['t'] == "MESSAGE_CREATE":
                         print(data['d'])
-                        #if data['d']['author']['username'] == 'Laurent Gander':
                         if data['d']['content'] == 'note':
+                            await readFile(data)
                             task = asyncio.ensure_future(send_message(data['d']['author']['id'],'Tu as deux, tu es nul'))
 
                         if data['d']['content'] == 'quit':
@@ -99,11 +99,6 @@ async def start(ws):
                     print("Unknown?", data)
 
 
-def readFile(name):
-    
-
-
-def writeFile(name, content):
 
 
 async def main():

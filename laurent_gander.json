@@ -1,0 +1,17 @@
+{
+"sciences":
+  {
+    "analyse" : [3,4,5],
+    "traitement du signal" : [4,4,4],
+    "proba et stat" : [5,5,5],
+    "algo num" : [4,5,4]
+  }
+,
+
+"programmation":
+  {
+    "java": [5,5],
+    "Qt" : [4,4,4],
+    "python":[1,1.2]
+  }
+}
