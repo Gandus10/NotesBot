@@ -62,6 +62,12 @@ async def identify(ws):
                               'large_threshold': 250}})
 
 
+async def writeFile(data, content):
+
+
+asyn def readFile(data, content):
+    
+
 async def start(ws):
     """Lance le bot sur l'adresse Web Socket donnée."""
     global last_sequence  # global est nécessaire pour modifier la variable

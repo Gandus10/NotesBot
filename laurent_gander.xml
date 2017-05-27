@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <sciences>
+    <analyse>
+      <note>4</note>
+      <note>5</note>
+    </analyse>
+    <traitementDeSignal>
+      <note>5</note>
+      <note>4</note>
+    </traitementDeSignal>
+    <algorithmeNumerique>
+      <note>5</note>
+      <note>6</note>
+    </algorithmeNumerique>
+    <probabiliteStatistique>
+      <note>4</note>
+      <note>5</note>
+    </probabiliteStatistique>
+  </sciences>
+  <programmation>
+    <java>
+      <note>4.5</note>
+      <note>5</note>
+    </java>
+    <Qt>
+      <note>4</note>
+      <note>5</note>
+    </Qt>
+    <python>
+      <note>5</note>
+      <note>6</note>
+    </python>
+  </programmation>
+</document>
