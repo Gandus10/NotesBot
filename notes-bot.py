@@ -1,5 +1,6 @@
 """Bot exemple qui retourne les moyennes du cours donnés."""
 
+import xml.etree.ElementTree as ET
 import asyncio
 import json
 import zlib
@@ -62,11 +63,8 @@ async def identify(ws):
                               'large_threshold': 250}})
 
 
-async def writeFile(data, content):
+#async def writeFile(data, content):
 
-
-asyn def readFile(data, content):
-    
 
 async def start(ws):
     """Lance le bot sur l'adresse Web Socket donnée."""
@@ -92,7 +90,7 @@ async def start(ws):
                         print(data['d'])
                         if data['d']['content'] == 'note':
                             await readFile(data)
-                            task = asyncio.ensure_future(send_message(data['d']['author']['id'],'Tu as deux, tu es nul'))
+                            #task = asyncio.ensure_future(send_message(data['d']['author']['id'],'Tu as deux, tu es nul'))
 
                         if data['d']['content'] == 'quit':
                             task = asyncio.ensure_future(send_message(data['d']['author']['id'],'Bye bye'))

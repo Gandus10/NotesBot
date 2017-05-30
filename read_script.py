@@ -13,7 +13,7 @@ def calculMoyenneModule(module, module_name):
 	return round(somme/diviseur, 1)
 
 def calculMoyenneCours(cours, cours_name):
-	"""Calcul de la moyenne pour un cours."""	
+	"""Calcul de la moyenne pour un cours."""
 	somme = 0
 	diviseur = 0
 
@@ -28,7 +28,7 @@ def getMoyenne(root, cours_ou_module):
 	"""Affiche la moyenne du cours ou du module demandée."""
 	for element in root.iter() :
 		if element.get("nom") == cours_ou_module :
-			if element.tag == "module" : 
+			if element.tag == "module" :
 				return calculMoyenneModule(element, cours_ou_module)
 			elif element.tag == "cours" :
 				return calculMoyenneCours(element, cours_ou_module)
@@ -44,7 +44,7 @@ def getNotes(root, cours_ou_module):
 				for note in element.iter("note"):
 					listNote.append(note.text + "*" + note.get("poids"))
 				return listNote
-	return "Aucun cours ce nom"
+	return "Aucun cours de ce nom"
 
 # ex : moyenne qt / moyenne programmation / notes analyse
 inputs = input("Message : ")

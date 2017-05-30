@@ -1,9 +1,9 @@
 {
 "sciences":
   {
-    "analyse" : [3,4,5],
-    "traitement du signal" : [4,4,4],
-    "proba et stat" : [5,5,5],
+    "analyse" : [],
+    "traitement du signal" : [],
+    "proba et stat" : [],
     "algo num" : [4,5,4]
   }
 ,
