@@ -1,6 +1,6 @@
 """Bot exemple qui retourne les moyennes du cours donnés."""
 
-import xml.etree.ElementTree as ET
+from datas import User, Module, Cours, Note
 import asyncio
 import json
 import zlib
@@ -58,12 +58,9 @@ async def identify(ws):
     """Tâche qui identifie le bot à la Web Socket (indispensable)."""
     await ws.send_json({'op': 2,  # Identify
                         'd': {'token': TOKEN,
-                              'properties': {},
-                              'compress': True,  # implique le bout de code lié à zlib, pas nécessaire.
-                              'large_threshold': 250}})
-
-
-#async def writeFile(data, content):
+                            'properties': {},
+                            'compress': True,  # implique le bout de code lié à zlib, pas nécessaire.
+                            'large_threshold': 250}})
 
 
 async def start(ws):
@@ -88,14 +85,41 @@ async def start(ws):
                     last_sequence = data['s']
                     if data['t'] == "MESSAGE_CREATE":
                         print(data['d'])
-                        if data['d']['content'] == 'note':
-                            #task = asyncio.ensure_future(send_message(data['d']['author']['id'],'Tu as deux, tu es nul'))
+                        if(data['d']['author']['username']!="Bot-notes"):
+                            user = User(data['d']['author']['username'].replace(' ','_'))
+                            user.load()
+                        inputs = data['d']['content'].split()
+                        if inputs[0] == 'moyenne':
+                            if(user.get_module(inputs[1])==inputs[1]):
+                                task = asyncio.ensure_future(send_message(data['d']['author']['id'],user.get_module(inputs[1]).average()))
+                            else:
+                                for module in list_module:
+                                    if (user.get_module(module).get_cours(inputs[1])==inputs[1]):
+                                        task = asyncio.ensure_future(send_message(data['d']['author']['id'],user.get_module(inputs[1]).average()))
 
-                        if data['d']['content'] == 'quit':
+                        if inputs[0] == 'ajouter':
+                            if inputs[1] == 'module':
+                                user.add_module(inputs[1])
+                                task = asyncio.ensure_future(send_message(data['d']['author']['id'],"module ajouté"))
+                                user.save()
+                            elif inputs[1] == 'cour':
+                                task = asyncio.ensure_future(send_message(data['d']['author']['id'],inputs[2]))
+                                #user.get_module(inputs[2]).add_cours(inputs[3], inputs[4])
+                                task = asyncio.ensure_future(send_message(data['d']['author']['id'],"cour ajoutée"))
+                                user.save()
+                            elif inputs[1] == 'note':
+                                user.get_module(inputs[2]).get_cours(inputs[3]).add_note(input[4], inputs[5])
+                                task = asyncio.ensure_future(send_message(data['d']['author']['id'],"note ajoutée"))
+                                user.save()
+                        else:
+                            print("Aucun module ou cour de ce nom")
+
+                        if inputs[0] == 'quit':
                             task = asyncio.ensure_future(send_message(data['d']['author']['id'],'Bye bye'))
                             # On l'attend l'envoi du message ci-dessus.
                             await asyncio.wait([task])
                             break
+
                     else:
                         print('Todo?', data['t'])
                 else:
