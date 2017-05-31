@@ -89,7 +89,6 @@ async def start(ws):
                     if data['t'] == "MESSAGE_CREATE":
                         print(data['d'])
                         if data['d']['content'] == 'note':
-                            await readFile(data)
                             #task = asyncio.ensure_future(send_message(data['d']['author']['id'],'Tu as deux, tu es nul'))
 
                         if data['d']['content'] == 'quit':

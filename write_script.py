@@ -12,9 +12,8 @@ def createFile(name):
 def insertNotes(nameCour, note, poids):
     """Insert une nouvelle note dans le cour donnée."""
     cour = etree.Element(nameCour)
-    etree.SubElement(cour, "note", nom=nameCour, poids=poids).text = note
+    etree.SubElement(cour, "note", poids=poids).text = note
     print(etree.tostring(cour, pretty_print=True))
-    #return "Aucun cours de ce nom"
 
 
 def insertModule(root, name):
