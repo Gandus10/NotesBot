@@ -1,44 +1,44 @@
 import pickle
 from collections import defaultdict
 from collections.abc import Collection
+from datasv2 import Branch
 
-class User:
-	"""Represents the user, has a list of modules."""
+class Grade:
+	"""docstring for Grade"""
+	def __init__(self, value, weight=1):
+		self.value = value
+		self.weight = weight
 
-	def __init__(self, username):
-		self.username = username
-		self.modules = defaultdict(Module)
+	def __repr__(self):
+		return "{self.grade} ({self.weight})".format(self=self)
+
+
+class Branch:
+	"""Represents a branch, contains a list of grades."""
+	def __init__(self, weight=1):
+		self.weight = weight
+		self.grades = []
+
+	def average(self):
+		somme = 0
+		diviseur = 0
+		for grade in self.grades:
+			somme += grade.value * grade.weight
+			diviseur += grade.weight
+		assert(diviseur > 0)
+		return round(somme/diviseur, 1)
 
 	def __iadd__(self, values):
 		if not isinstance(values, Collection):
 			values = [values]
-		self.modules.append(Module(*values))
+		self.grades.append(Grade(*values))
 		return self
 
-	def __getattr__(self, name):
-		return self.modules[name]
+#	def add_grade(self, value, weight):
+#		self.grades.append(Grade(value, weight))
+#		return self.grades
 
-	def save(self):
-		with open(self.username + ".dat", "wb") as f:
-			pickle.dump(self.modules, f)
 
-	def load(self):
-		with open(self.username + ".dat", "rb") as f:
-			modules = pickle.load(f)
-
-#	def get_module(self, module_name):
-#		for module in self.modules:
-#			if(module.name == module_name):
-#				return module
-#		return None
-#
-#	def add_module(self, name_module):
-#		if self.modules[name_module] == None:
-#			self.modules[name_module] = Module(name_module)
-#			return self.modules[name_module]
-#		else:
-#			print("Module déjà existant")
-		
 class Module:
 	"""Represents the module, contains list of branches."""
 	def __init__(self):
@@ -77,40 +77,43 @@ class Module:
 #			print("Cours déjà existant")
 
 
-class Branch:
-	"""Represents a branch, contains a list of grades."""
-	def __init__(self, weight=1):
-		self.weight = weight
-		self.grades = []
+class User:
+	"""Represents the user, has a list of modules."""
 
-	def average(self):
-		somme = 0
-		diviseur = 0
-		for grade in self.grades:
-			somme += grade.value * grade.weight
-			diviseur += grade.weight
-		assert(diviseur > 0)
-		return round(somme/diviseur, 1)
+	def __init__(self, username):
+		self.username = username
+		self.modules = defaultdict(Module)
 
 	def __iadd__(self, values):
 		if not isinstance(values, Collection):
 			values = [values]
-		self.grades.append(Grade(*values))
+		self.modules.append(Module(*values))
 		return self
 
-#	def add_grade(self, value, weight):
-#		self.grades.append(Grade(value, weight))
-#		return self.grades
+	def __getattr__(self, name):
+		return self.modules[name]
 
+	def save(self):
+		with open(self.username + ".dat", "wb") as f:
+			pickle.dump(self.modules, f)
 
-class Grade:
-	"""docstring for Grade"""
-	def __init__(self, value, weight=1):
-		self.value = value
-		self.weight = weight
+	def load(self):
+		with open(self.username + ".dat", "rb") as f:
+			modules = pickle.load(f)
 
-	def __repr__(self):
-		return "{self.grade} ({self.weight})".format(self=self)
+#	def get_module(self, module_name):
+#		for module in self.modules:
+#			if(module.name == module_name):
+#				return module
+#		return None
+#
+#	def add_module(self, name_module):
+#		if self.modules[name_module] == None:
+#			self.modules[name_module] = Module(name_module)
+#			return self.modules[name_module]
+#		else:
+#			print("Module déjà existant")
+	
 
 def load_user(name):
 	user = User(name);
