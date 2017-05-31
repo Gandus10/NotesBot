@@ -85,7 +85,7 @@ class Note:
 		self.poids = poids
 
 
-<<<<<<< HEAD
+
 # jean = User("jean")
 #
 # jean.add_module("sciences").add_cours("math", 1).add_note(5, 1)
@@ -98,18 +98,3 @@ class Note:
 #
 # jean.get_module("sciences").get_cours("math").add_note(6,0.5)
 # print("Moyenne du cours après ajout d'un 6:", jean.get_module("sciences").get_cours("math").average())
-=======
-jean = User("jean")
-
-jean.add_module("sciences").add_cours("math", 1).add_note(5, 1)
-
-jean.save()
-jean.load()
-
-print("Moyenne du cours:", jean.get_module("sciences").get_cours("math").average())
-print("Moyenne du module:", jean.get_module("sciences").average())
-
-jean.get_module("sciences").get_cours("math").add_note(6, 0.5)
-print("Moyenne du cours après ajout d'un 6 de poids 0.5:", 
-		jean.get_module("sciences").get_cours("math").average())
->>>>>>> 1fcf6f6ac76c81186f4570057d1c46087af00be4
