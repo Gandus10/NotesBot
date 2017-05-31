@@ -96,4 +96,4 @@ print("Moyenne du cours:", jean.get_module("sciences").get_cours("math").average
 print("Moyenne du module:", jean.get_module("sciences").average())
 
 jean.get_module("sciences").get_cours("math").add_note(6,0.5)
-print("Moyenne du cours après ajout d'un 6:", jean.get_module("sciences").get_cours("math").average())
+print("Moyenne du cours après ajout d'un 6 de poids 0.5:", jean.get_module("sciences").get_cours("math").average())
