@@ -8,9 +8,8 @@ class User:
 
 	def add_module(self, name_module):
 		if self.get_module(name_module) == None:
-			module = Module(name_module)
-			self.list_module.append(module)
-			return module
+			self.list_module.append(Module(name_module))
+			return self.list_module[-1]
 		else:
 			print("Module déjà existant")
 
@@ -36,9 +35,8 @@ class Module:
 
 	def add_cours(self, name_cours, poids_cours):
 		if self.get_cours(name_cours) == None:
-			cours = Cours(name_cours, poids_cours)
-			self.list_cours.append(cours)
-			return cours
+			self.list_cours.append(Cours(name_cours, poids_cours))
+			return self.list_cours[-1]
 		else:
 			print("Cours déjà existant")
 
@@ -95,5 +93,6 @@ jean.load()
 print("Moyenne du cours:", jean.get_module("sciences").get_cours("math").average())
 print("Moyenne du module:", jean.get_module("sciences").average())
 
-jean.get_module("sciences").get_cours("math").add_note(6,0.5)
-print("Moyenne du cours après ajout d'un 6 de poids 0.5:", jean.get_module("sciences").get_cours("math").average())
+jean.get_module("sciences").get_cours("math").add_note(6, 0.5)
+print("Moyenne du cours après ajout d'un 6 de poids 0.5:", 
+		jean.get_module("sciences").get_cours("math").average())
