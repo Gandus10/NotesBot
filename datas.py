@@ -5,6 +5,8 @@ class User:
 	list_module = []
 	def __init__(self, username):
 		self.username = username
+		with open(self.username + ".dat", "wb") as f:
+			pickle.dump(self.list_module, f)
 
 	def add_module(self, name_module):
 		if self.get_module(name_module) == None:
@@ -27,7 +29,7 @@ class User:
 			if(module.name == module_name):
 				return module
 		return None
-		
+
 class Module:
 	"""docstring for Module"""
 	list_cours = []
@@ -85,15 +87,15 @@ class Note:
 		self.poids = poids
 
 
-jean = User("jean")
-
-jean.add_module("sciences").add_cours("math", 1).add_note(5, 1)
-
-jean.save()
-jean.load()
-
-print("Moyenne du cours:", jean.get_module("sciences").get_cours("math").average())
-print("Moyenne du module:", jean.get_module("sciences").average())
-
-jean.get_module("sciences").get_cours("math").add_note(6,0.5)
-print("Moyenne du cours après ajout d'un 6:", jean.get_module("sciences").get_cours("math").average())
+# jean = User("jean")
+#
+# jean.add_module("sciences").add_cours("math", 1).add_note(5, 1)
+#
+# jean.save()
+# jean.load()
+#
+# print("Moyenne du cours:", jean.get_module("sciences").get_cours("math").average())
+# print("Moyenne du module:", jean.get_module("sciences").average())
+#
+# jean.get_module("sciences").get_cours("math").add_note(6,0.5)
+# print("Moyenne du cours après ajout d'un 6:", jean.get_module("sciences").get_cours("math").average())
