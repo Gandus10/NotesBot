@@ -1,6 +1,6 @@
 """Bot exemple qui retourne les moyennes du cours donnés."""
 
-from datas import User, Module, Cours, Note
+from datas import User
 import asyncio
 import json
 import zlib
