@@ -83,43 +83,11 @@ async def start(ws):
 					print("< Heartbeat ACK")
 				elif data['op'] == 0:  # Dispatch
 					last_sequence = data['s']
+					
 					if data['t'] == "MESSAGE_CREATE":
-						print(data['d'])
-						if(data['d']['author']['username'] != "Bot-notes"):
-							user = User(data['d']['author']['username'].replace(' ','_'))
-							user.load()
-							print(user.modules)
-						commande, *args = data['d']['content'].split()
 
-						if commande == 'moyenne':
-							module_ou_cours, *values = args
-
-							if module_ou_cours in user.modules:
-								task = asyncio.ensure_future(send_message(data['d']['author']['id'], user.get_module(module_ou_cours).average()))
-							else:
-								# Ce n'est pas un module donc on cherche un cours
-								print(user.modules)
-								for name, module in user.modules.items():
-									print("cours",module)
-									if module_ou_cours in module.branches:
-										task = asyncio.ensure_future(send_message(data['d']['author']['id'], module.get_branch(module_ou_cours).average()))
-
-						if commande == 'ajouter':
-							cours_ou_note, nom_module, nom_du_cours, *values = args
-							if  cours_ou_note == 'cours':
-								poids = values
-								user.get_module(nom_module).add_branch(nom_du_cours, poids)
-								print(user.modules)
-								task = asyncio.ensure_future(send_message(data['d']['author']['id'],"cours ajouté"))
-								user.save()
-							elif cours_ou_note == 'note':
-								note, poids = values
-								user.get_module(nom_module).get_branch(nom_du_cours).add_grade(note, poids)
-								print(user.get_module(nom_module).get_branch(nom_du_cours).grades)
-								task = asyncio.ensure_future(send_message(data['d']['author']['id'],"note ajoutée"))
-								user.save()
-
-						if commande == 'quit':
+						if(message_received(data)): # Processing the message
+							# If it say 'quit', break the loop and exit.
 							task = asyncio.ensure_future(send_message(data['d']['author']['id'],'Bye bye'))
 							# On l'attend l'envoi du message ci-dessus.
 							await asyncio.wait([task])
@@ -150,6 +118,63 @@ async def show_average_module():
 async def show_help():
 	pass
 
+
+def message_received(data):
+	"""Process the received message. Send a response."""
+	print(data['d'])
+	if(data['d']['author']['username'] != "Bot-notes"):
+		user = User(data['d']['author']['id'])
+		user.load()
+		print(user.modules)
+		
+	commande, *args = data['d']['content'].split()
+
+	if commande == 'moyenne':
+		module_ou_cours, *values = args
+		if module_ou_cours in user.modules:
+			task = asyncio.ensure_future(send_message(data['d']['author']['id'], str(user.get_module(module_ou_cours).average())))
+			#print(user.get_module(module_ou_cours).average())
+		else:
+			# Ce n'est pas un module donc on cherche un cours
+			for name, module in user.modules.items():
+				if module_ou_cours in module.branches:
+					#print(module.get_branch(module_ou_cours).average())
+					task = asyncio.ensure_future(send_message(data['d']['author']['id'], str(module.get_branch(module_ou_cours).average())))
+
+	if commande == 'ajoute':
+		cours_ou_note, nom_module, nom_du_cours, *values = args
+		if  cours_ou_note == 'cours':
+			poids = values
+			user.get_module(nom_module).add_branch(nom_du_cours, poids)
+			#print(f"cours ajouté : {nom_du_cours} dans {nom_module}")
+			task = asyncio.ensure_future(send_message(data['d']['author']['id'],f"Cours ajouté : {nom_du_cours} dans {nom_module}"))
+			user.save()
+		elif cours_ou_note == 'note':
+			note, poids = values
+			user.get_module(nom_module).get_branch(nom_du_cours).add_grade(note, poids)
+			#print(f"note ajoutée {note} ({poids}) dans {nom_du_cours}")
+			task = asyncio.ensure_future(send_message(data['d']['author']['id'], f"Note ajoutée {note} ({poids}) dans {nom_du_cours}"))
+			user.save()
+
+
+	if commande == 'affiche':
+		task = asyncio.ensure_future(send_message(data['d']['author']['id'], str(user) if str(user) != '' else 'Rien à afficher'))
+
+	if commande == 'help':
+		task = asyncio.ensure_future(send_message(data['d']['author']['id'], help_msg))
+
+	if commande == 'quit':
+		return 1
+
+	return 0
+
+# Constant
+help_msg = """Ajouter un cours avec : ```ajoute nom_du_module nom_du_cours poids_du_cours_dans_le_module```
+	Ajouter une note avec : ```ajoute nom_du_module nom_du_cours note poids_de_la_note```
+	Calcul la moyenne d'un cours avec : ``` moyenne nom_du_cours```
+	Calcul la moyenne d'un module avec : ``` moyenne nom_du_module```
+	Affichage d'un résumé : ```affiche ```
+	Affiche l'aide avec : ```help ``` """
 
 # Lancer le programme.
 loop = asyncio.get_event_loop()

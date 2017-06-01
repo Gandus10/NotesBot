@@ -32,12 +32,14 @@ def traitement(message, user):
 		print(user)
 
 	if commande == 'help':
-		print("Ajouter un cours avec :\n\tajoute nom_du_module nom_du_cours poids_du_cours_dans_le_module\n",
-			  "Ajouter une note avec : \n\tajoute nom_du_module nom_du_cours note poids_de_la_note\n",
-			  "Calcul la moyenne d'un cours avec : \n\t moyenne nom_du_cours\n",
-			  "Calcul la moyenne d'un module avec : \n\t moyenne nom_du_module\n",
-			  "Affichage d'un résumé : affiche"
-			  )
+		help_msg = """Ajouter un cours avec :\n\tajoute nom_du_module nom_du_cours poids_du_cours_dans_le_module\n\n
+			  Ajouter une note avec : \n\tajoute nom_du_module nom_du_cours note poids_de_la_note\n\n
+			  Calcul la moyenne d'un cours avec : \n\t moyenne nom_du_cours\n\n
+			  Calcul la moyenne d'un module avec : \n\t moyenne nom_du_module\n\n
+			  Affichage d'un résumé : \n\taffiche\n\n
+			  Affiche l'aide avec : \n\thelp\n """
+			  
+		print(help_msg)
 
 user = load_user('Sylvain_Renaud')
 #user = User('Sylvain_Renaud')

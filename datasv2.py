@@ -1,4 +1,5 @@
 import pickle
+import os
 from collections import defaultdict
 from collections.abc import Collection
 
@@ -90,10 +91,9 @@ class Module:
 class User:
 	"""Represents the user, has a list of modules."""
 
-	def __init__(self, username):
-		self.username = username
+	def __init__(self, discord_id):
+		self.discord_id = discord_id
 		self.modules = defaultdict(dd_module)
-		#self.save()
 
 	def __iadd__(self, values):
 		if not isinstance(values, Collection):
@@ -108,12 +108,20 @@ class User:
 		return self.modules[name]
 
 	def save(self):
-		with open(self.username + ".dat", "wb") as f:
+		if not os.path.exists("./user_datas"):
+			os.makedirs("./user_datas")
+		with open("./user_datas/"+self.discord_id + ".dat", "wb") as f:
 			pickle.dump(self.modules, f)
 
 	def load(self):
-		with open(self.username + ".dat", "rb") as f:
-			self.modules = pickle.load(f)
+		if not os.path.exists("./user_datas"):
+			os.makedirs("./user_datas")
+		try:
+			with open("./user_datas/" + self.discord_id + ".dat", "rb") as f:
+				self.modules = pickle.load(f)
+
+		except FileNotFoundError:
+			self.save()
 
 	def __str__(self):
 		string = str()
@@ -129,25 +137,3 @@ def load_user(name):
 	user = User(name);
 	user.load()
 	return user
-
-#jean = load_user("jean")
-#jean = User('jean')
-#mod = input("modules : ")
-#cours = input("cours : ")
-
-
-#eval(entree)
-
-#jean.sciences.math += 4
-#jean.sciences.analyse += 4
-#jean.mod.cours += 6
-# entree = input("entree : ")
-
-# entree = entree.split()
-
-# print("Split",jean.get_module(entree[0]).get_branch(entree[1]).average())
-
-#print(jean.mod.cours.average())
-#print(jean.sciences.average(),"/", jean.sciences.math.average(),"/", jean.sciences.analyse.average())
-
-# jean.save();
