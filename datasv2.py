@@ -17,7 +17,7 @@ class Grade:
 		self.weight = weight
 
 	def __repr__(self):
-		return f"{self.grade} ({self.weight})"
+		return f"{self.value} ({self.weight})"
 
 
 class Branch:
@@ -36,6 +36,7 @@ class Branch:
 	def average(self):
 		somme = 0
 		diviseur = 0
+		#print("grade:",self.grades)
 		for grade in self.grades:
 			somme += grade.value * grade.weight
 			diviseur += grade.weight
@@ -106,14 +107,19 @@ def load_user(name):
 	user.load()
 	return user
 
-jean = load_user("jean")
+#jean = load_user("jean")
+jean = User('jean')
+#mod = input("modules : ")
+#cours = input("cours : ")
 
-#mod = input("module")
-#cours = input("cours")
+entree = input("entree : ")
+
+#eval(entree)
 
 jean.sciences.math += 4
-jean.sciences.analyse += 5
-
+jean.sciences.analyse += 4
+jean.mod.cours += 6
+print(jean.mod.cours.average())
 print(jean.sciences.average(),"/", jean.sciences.math.average(),"/", jean.sciences.analyse.average())
 
 jean.save();
