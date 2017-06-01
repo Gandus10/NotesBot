@@ -33,13 +33,16 @@ class Branch:
 		self.grades.append(Grade(*values))
 		return self
 
+	def add_grade(self, value, weight):
+		self.grades.append(Grade(value, weight))
+
 	def average(self):
 		somme = 0
 		diviseur = 0
 		#print("grade:",self.grades)
 		for grade in self.grades:
-			somme += grade.value * grade.weight
-			diviseur += grade.weight
+			somme += float(grade.value) * float(grade.weight)
+			diviseur += float(grade.weight)
 		assert(diviseur > 0)
 		return round(somme/diviseur, 1)
 
@@ -67,13 +70,20 @@ class Module:
 	def __setstate__(self, state):
 		self.branches = state
 
+	def get_branch(self, name):
+		return self.branches[name]
+
+	def add_branch(self, name, weight=1):
+		return self.branches[name]
+
 	def average(self):
 		somme = 0
 		diviseur = 0
 		for branch in self.branches.values():
-			somme += branch.weight * branch.average()
-			diviseur += branch.weight
-		assert(diviseur > 0)
+			somme += float(branch.weight) * branch.average()
+			diviseur += float(branch.weight)
+		if not diviseur:
+			return 0
 		return round(somme/diviseur,1)
 
 
@@ -83,6 +93,7 @@ class User:
 	def __init__(self, username):
 		self.username = username
 		self.modules = defaultdict(dd_module)
+		#self.save()
 
 	def __iadd__(self, values):
 		if not isinstance(values, Collection):
@@ -93,13 +104,25 @@ class User:
 	def __getattr__(self, name):
 		return self.modules[name]
 
+	def get_module(self, name):
+		return self.modules[name]
+
 	def save(self):
 		with open(self.username + ".dat", "wb") as f:
 			pickle.dump(self.modules, f)
 
 	def load(self):
 		with open(self.username + ".dat", "rb") as f:
-			modules = pickle.load(f)
+			self.modules = pickle.load(f)
+
+	def __str__(self):
+		string = str()
+		for mod_name, module in self.modules.items():
+			string += f"{mod_name} : \n"
+			for branch_name, branch in module.branches.items():
+				string += f"\t{branch_name} : {branch.grades}\n"
+			string += "\n"
+		return string
 
 
 def load_user(name):
@@ -108,18 +131,23 @@ def load_user(name):
 	return user
 
 #jean = load_user("jean")
-jean = User('jean')
+#jean = User('jean')
 #mod = input("modules : ")
 #cours = input("cours : ")
 
-entree = input("entree : ")
 
 #eval(entree)
 
-jean.sciences.math += 4
-jean.sciences.analyse += 4
-jean.mod.cours += 6
-print(jean.mod.cours.average())
-print(jean.sciences.average(),"/", jean.sciences.math.average(),"/", jean.sciences.analyse.average())
+#jean.sciences.math += 4
+#jean.sciences.analyse += 4
+#jean.mod.cours += 6
+# entree = input("entree : ")
 
-jean.save();
+# entree = entree.split()
+
+# print("Split",jean.get_module(entree[0]).get_branch(entree[1]).average())
+
+#print(jean.mod.cours.average())
+#print(jean.sciences.average(),"/", jean.sciences.math.average(),"/", jean.sciences.analyse.average())
+
+# jean.save();
