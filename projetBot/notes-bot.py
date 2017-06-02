@@ -1,6 +1,6 @@
 """Bot exemple qui retourne les moyennes du cours donnés."""
 
-from dataprocess import User
+from dataprocess import load_user
 import asyncio
 import json
 import zlib
@@ -83,6 +83,8 @@ async def start(ws):
                     data = json.loads(msg.data)
                 elif msg.tp == aiohttp.WSMsgType.BINARY:
                     data = json.loads(zlib.decompress(msg.data))
+                # elif msg.tp == aiohttp.WSMsgType.ERROR:
+                #    print("Error message type", msg.tp, msg.data)
                 else:
                     print("?", msg.tp)
 
@@ -115,6 +117,7 @@ async def start(ws):
 
 
 async def main():
+    """Main method."""
     response = await api_call('/gateway')
     await start(response['url'])
 
@@ -123,9 +126,8 @@ def message_received(data):
     """Process the received message. Send a response."""
     print(data['d'])
     if(data['d']['author']['username'] != "Bot-notes"):
-        user = User(data['d']['author']['id'])
-        user.load()
-        print(user.modules)
+        user = load_user(data['d']['author']['id'])
+        print(user)
 
     commande, *args = data['d']['content'].split()
 

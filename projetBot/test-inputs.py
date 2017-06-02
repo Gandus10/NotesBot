@@ -1,10 +1,13 @@
+"""Test module for dataprocess. Message come from input() method."""
+
 from dataprocess import load_user
 
 
-def traitement(message, user):
-    commande, *args = message.split()
+def process(message, user):
+    """Process message."""
+    command, *args = message.split()
 
-    if commande == 'moyenne':
+    if command == 'moyenne':
         module_ou_cours, *values = args
         if module_ou_cours in user.modules:
             print(user.get_module(module_ou_cours).average())
@@ -14,7 +17,7 @@ def traitement(message, user):
                 if module_ou_cours in module.branches:
                     print(module.get_branch(module_ou_cours).average())
 
-    if commande == 'ajoute':
+    if command == 'ajoute':
         cours_ou_note, nom_module, nom_du_cours, *values = args
         if cours_ou_note == 'cours':
             poids = values
@@ -28,10 +31,10 @@ def traitement(message, user):
             print("note ajoutée", note, poids, "dans", nom_du_cours)
             user.save()
 
-    if commande == 'affiche':
+    if command == 'affiche':
         print(user)
 
-    if commande == 'help':
+    if command == 'help':
         help_msg = """help message prototype"""
         print(help_msg)
 
@@ -42,4 +45,4 @@ user = load_user('Sylvain_Renaud')
 
 while True:
     message = input("message: ")
-    traitement(message, user)
+    process(message, user)
