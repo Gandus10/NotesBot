@@ -104,4 +104,5 @@ ENV/
 # End of https://www.gitignore.io/api/python
 
 *.dat
-user_datas/
+*user_datas/
+*old_version/
