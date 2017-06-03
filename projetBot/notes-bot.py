@@ -18,6 +18,7 @@ if loop.is_closed():
 # Search for token in environnement variable
 if os.environ.get('TOKEN'):
     TOKEN = os.environ.get('TOKEN')
+    print("TOKEN:", TOKEN)
 else:
     exit("Discord token not defined in environment variable")
 
