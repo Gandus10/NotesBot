@@ -5,6 +5,7 @@ import asyncio
 import json
 import zlib
 import aiohttp
+import os
 
 # Jupyter hack pour recréer une boucle.
 # Pas nécessaire hors de Jupyter
@@ -14,7 +15,11 @@ if loop.is_closed():
     asyncio.set_event_loop(loop)
 # fin du hack
 
-TOKEN = 'MzEyMTcwNTgzMTA0NDIxODkw.C_72kA._bH0bFDqebVIYXyOowS0NPf_S4k'
+# Search for token in environnement variable
+if os.environ.get('TOKEN'):
+    TOKEN = os.environ.get('TOKEN')
+else:
+    exit("Discord token not defined in environment variable")
 
 URL = "https://discordapp.com/api"
 HEADERS = {
