@@ -1,6 +1,3 @@
-.. image :: https://travis-ci.org/sylvain1811/discord-bot-notes.svg?branch=master
-    :target: https://travis-ci.org/sylvain1811/discord-bot-notes
-
 Discord bot
 ===========
 
