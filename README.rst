@@ -43,6 +43,7 @@ Usage
 -----
 
 Send message to Bot-notes on Discord.
+Use `!help` to show available commands.
 
 .. include:: ./nots-bot/help_message.rst
 
