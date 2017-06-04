@@ -2,7 +2,7 @@
 
 set -xe
 
-flake8 projetBot
-pydocstyle projetBot
+flake8 notes-bot
+pydocstyle notes-bot
 rstcheck README.rst
-isort --recursive --check-only projetBot
+isort --recursive --check-only notes-bot
