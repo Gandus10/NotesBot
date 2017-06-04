@@ -30,7 +30,7 @@ Installation
 Configuration
 -------------
 
-Discord TOKEN is read from environnement variable at `TOKEN`. Make sure to add yours before running the bot.
+Discord TOKEN is read from environnement variable at ``TOKEN``. Make sure to add yours before running the bot.
 
 Run
 ---
@@ -43,7 +43,7 @@ Usage
 -----
 
 Send message to Bot-notes on Discord.
-Use `!help` to show available commands.
+Use ``!help`` to show available commands.
 
 .. include:: ./nots-bot/help_message.rst
 
