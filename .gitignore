@@ -106,3 +106,4 @@ ENV/
 *.dat
 *user_datas/
 *old_version/
+.idea/
