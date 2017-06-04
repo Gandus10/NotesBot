@@ -15,7 +15,7 @@ async def message_received(message):
     user = load_user(message.author.id)
     commande, *args = message.content.split()
 
-    if commande == 'moyenne':
+    if commande == '!avg':
         try:
             module_ou_cours, *values = args
             if module_ou_cours in user.modules:
@@ -34,10 +34,10 @@ async def message_received(message):
                 message.channel,
                 f'Pas assez d\'arguments\n{help_msg}')
 
-    if commande == 'ajoute':
+    if commande == '!add':
         try:
             cours_ou_note, nom_module, nom_du_cours, *values = args
-            if cours_ou_note == 'cours':
+            if cours_ou_note == 'branch':
                 try:
                     print(values)
                     try:
@@ -55,7 +55,7 @@ async def message_received(message):
                         message.channel,
                         f"Erreur : précisez le poids du cours.")
 
-            elif cours_ou_note == 'note':
+            elif cours_ou_note == 'grade':
                 note, *poids = values
                 try:
                     poids = poids[0]
@@ -73,7 +73,7 @@ async def message_received(message):
                 message.channel,
                 f'Pas assez d\'arguments\n{help_msg}')
 
-    if commande == 'supprime':
+    if commande == '!del':
         try:
             module, *values = args
             if len(values):
@@ -105,7 +105,7 @@ async def message_received(message):
                 message.channel,
                 f'Pas assez d\'arguments\n{help_msg}')
 
-    if commande == 'affiche':
+    if commande == '!show':
         try:
             await client.send_message(
                 message.channel,
@@ -115,12 +115,13 @@ async def message_received(message):
                 message.channel,
                 f'Pas assez d\'arguments\n{help_msg}')
 
-    if commande == 'help':
+    if commande == '!help':
         await client.send_message(message.channel, help_msg)
 
     if commande == '!quit':
-        await client.send_message(message.channel, "Bye bye!")
-        await client.logout()
+        pass
+        # await client.send_message(message.channel, "Bye bye!")
+        # await client.logout()
 
 
 @client.event
@@ -133,7 +134,7 @@ async def on_ready():
 async def on_message(message):
     """"Discord client event : called when client received a message."""
     # Process only message from other users
-    if message.author.id != client.user.id:
+    if message.author.id != client.user.id and message.channel.is_private:
         await message_received(message)
 
 
