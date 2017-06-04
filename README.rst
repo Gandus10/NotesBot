@@ -1,5 +1,6 @@
-.. image:: 
-	:target: <https://travis-ci.org/Gandus10/projetBot.svg?branch=master>`_
+.. image:: https://travis-ci.org/Gandus10/projetBot.svg?branch=master
+   :target: https://travis-ci.org/Gandus10/projetBot
+   :alt: Build Status
 
 Discord bot : Bot-notes
 =======================
