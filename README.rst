@@ -23,6 +23,10 @@ Requirements
 Installation
 ------------
 
+.. code-block:: console
+
+    $ pip install NotesBot
+
 Configuration
 -------------
 
