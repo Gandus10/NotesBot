@@ -31,6 +31,12 @@ Run
 
     $ python notes-bot/notes-bot-discordapi.py
 
+Usage
+-----
+
+Send message to Bot-notes on Discord.
+
+.. include:: notes-bot/help_message.rst
 
 Auteurs
 -------
