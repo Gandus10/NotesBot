@@ -26,15 +26,14 @@ class Grade:
 
     def __repr__(self):
         """Return userfriendly representation of the grade."""
-        return f"{self.value} ({self.weight})"
+        return f"**{self.value}** ({self.weight})"
 
 
 class Branch:
     """Represents a branch with grades and module weight."""
 
-    def __init__(self, weight=1):
+    def __init__(self):
         """Construct a branch with a weight."""
-        self.weight = weight
         self.grades = []
 
     def __iadd__(self, values):
@@ -91,8 +90,17 @@ class Module:
         """Return the branch in branches with the given name."""
         return self.branches[name]
 
+    def delete_branch(self, name):
+        """"Delete branch in branches with the given name."""
+        try:
+            del self.branches[name]
+            return 0
+        except KeyError:
+            return 1
+
     def add_branch(self, name, weight=1):
         """Add a branch to branches at key name."""
+        self.branches[name].weight = weight
         return self.branches[name]
 
     def average(self):
@@ -130,6 +138,14 @@ class User:
         """Return the mondule in modules with the givent name."""
         return self.modules[name]
 
+    def delete_module(self, module_name):
+        """"Delete the module in modules with the given name."""
+        try:
+            del self.modules[module_name]
+            return 0
+        except KeyError:
+            return 1
+
     def save(self):
         """Save user datas in file named by discord_id."""
         if not os.path.exists("./user_datas"):
@@ -151,9 +167,10 @@ class User:
         """Return user readable datas of his modules, branches and grades."""
         string = str()
         for mod_name, module in self.modules.items():
-            string += f"{mod_name} : \n"
+            string += f"__**{mod_name}**__\n"
             for branch_name, branch in module.branches.items():
-                string += f"\t{branch_name} : {branch.grades}\n"
+                string += \
+                    f"__{branch_name}__({branch.weight}) :\t{branch.grades}\n"
             string += "\n"
         return string
 

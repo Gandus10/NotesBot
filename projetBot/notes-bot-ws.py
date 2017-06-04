@@ -194,19 +194,9 @@ def message_received(data):
     return 0
 
 
-# Constant
-help_msg = """Ajouter un cours avec :
-    ```ajoute nom_du_module nom_du_cours poids_du_cours_dans_le_module```
-    Ajouter une note avec :
-    ```ajoute nom_du_module nom_du_cours note poids_de_la_note```
-    Calcul la moyenne d'un cours avec :
-    ``` moyenne nom_du_cours```
-    Calcul la moyenne d'un module avec :
-    ``` moyenne nom_du_module```
-    Affichage d'un résumé :
-    ```affiche ```
-    Affiche l'aide avec :
-    ```help ``` """
+# Help message is in a separated file.
+with open("help_message.rst", encoding="UTF-8") as file:
+    help_msg = file.read()
 
 # Lancer le programme.
 loop = asyncio.get_event_loop()
