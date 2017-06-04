@@ -1,3 +1,6 @@
+.. image:: 
+	:target: <https://travis-ci.org/Gandus10/projetBot.svg?branch=master>`_
+
 Discord bot : Bot-notes
 =======================
 
@@ -36,7 +39,8 @@ Usage
 
 Send message to Bot-notes on Discord.
 
-.. include:: notes-bot/help_message.rst
+.. include:: ./nots-bot/help_message.rst
+
 
 Auteurs
 -------
