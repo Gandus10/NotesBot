@@ -1,4 +1,4 @@
-"""Bot exemple qui retourne les moyennes du cours donnés."""
+"""Bot exemple qui retourne les moyennes du cours donnés. DEPRECATED."""
 
 import asyncio
 import json

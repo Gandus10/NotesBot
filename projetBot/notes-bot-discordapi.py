@@ -8,26 +8,9 @@ from dataprocess import load_user
 
 client = discord.Client()
 
-# Constant
-with open("help_message.rst", encoding="UTF-8") as file:
-    help_msg = file.read()
-
-# help_msg = """Ajouter un cours avec :
-#     ```ajoute nom_du_module nom_du_cours poids_du_cours_dans_le_module```
-#     Ajouter une note avec :
-#     ```ajoute nom_du_module nom_du_cours note poids_de_la_note```
-#     Calcul la moyenne d'un cours avec :
-#     ``` moyenne nom_du_cours```
-#     Calcul la moyenne d'un module avec :
-#     ``` moyenne nom_du_module```
-#     Affichage d'un résumé :
-#     ```affiche ```
-#     Affiche l'aide avec :
-#     ```help ``` """
-
 
 async def message_received(message):
-    """Process the received message. Send a response."""
+    """Process the received message and answer to it."""
     print(message.content)
     user = load_user(message.author.id)
     commande, *args = message.content.split()
@@ -56,8 +39,13 @@ async def message_received(message):
             cours_ou_note, nom_module, nom_du_cours, *values = args
             if cours_ou_note == 'cours':
                 try:
-                    poids = int(values)
-                    user.get_module(nom_module).add_branch(nom_du_cours, poids)
+                    print(values)
+                    try:
+                        poids = int(values[0])
+                    except IndexError:
+                        poids = 1  # Default value if not specified
+                    user.get_module(nom_module).add_branch(nom_du_cours,
+                                                           poids)
                     await client.send_message(
                         message.channel,
                         f"Cours ajouté : {nom_du_cours} dans {nom_module}")
@@ -68,7 +56,11 @@ async def message_received(message):
                         f"Erreur : précisez le poids du cours.")
 
             elif cours_ou_note == 'note':
-                note, poids = values
+                note, *poids = values
+                try:
+                    poids = poids[0]
+                except IndexError:
+                    poids = 1  # Default value
                 user.get_module(
                     nom_module).get_branch(
                     nom_du_cours).add_grade(note, poids)
@@ -94,7 +86,8 @@ async def message_received(message):
                 else:
                     await client.send_message(
                         message.channel,
-                        f"Aucun cours de ce nom dans ce module: {branch_name}")
+                        f"Aucun cours de ce nom ({branch_name}"
+                        f" dans ce module: {module}")
             else:
                 # values = 0, deleting the module itself.
                 if not user.delete_module(module):
@@ -125,7 +118,7 @@ async def message_received(message):
     if commande == 'help':
         await client.send_message(message.channel, help_msg)
 
-    if commande == 'quit':
+    if commande == '!quit':
         await client.send_message(message.channel, "Bye bye!")
         await client.logout()
 
@@ -143,6 +136,10 @@ async def on_message(message):
     if message.author.id != client.user.id:
         await message_received(message)
 
+
+# Get help message from a file
+with open("help_message.rst", encoding="UTF-8") as file:
+    help_msg = file.read()
 
 # Get the token from environment variable
 if os.environ.get('TOKEN'):
