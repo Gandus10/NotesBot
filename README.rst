@@ -13,4 +13,5 @@ moyenne 'nom du module' ou 'moyenne nom du cours'
 Auteurs
 -------
 
-Laurent Gander, Sylvain Renaud
+- Laurent Gander, laurent.gander@he-arc.ch
+- Sylvain Renaud, sylvain.renaud@he-arc.ch
