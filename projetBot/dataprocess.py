@@ -1,7 +1,7 @@
 """Structure, save, load and process datas."""
 
-import pickle
 import os
+import pickle
 from collections import defaultdict
 from collections.abc import Collection
 

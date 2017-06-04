@@ -2,7 +2,7 @@ Discord bot
 ===========
 
 Idée de base du projet
-----------------------
+-----------------------
 
 Le but du projet est de réaliser un Discord Bot que l'utilisateur
 peut utiliser pour calculer sa moyenne de module

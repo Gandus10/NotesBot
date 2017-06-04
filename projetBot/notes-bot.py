@@ -1,11 +1,13 @@
 """Bot exemple qui retourne les moyennes du cours donnés."""
 
-from dataprocess import load_user
 import asyncio
 import json
-import zlib
-import aiohttp
 import os
+import zlib
+
+import aiohttp
+
+from dataprocess import load_user
 
 # Jupyter hack pour recréer une boucle.
 # Pas nécessaire hors de Jupyter
