@@ -1,9 +1,7 @@
 """"Bot-notes using discord API from https://github.com/Rapptz/discord.py."""
 
-import os
-
 import discord
-
+import os
 from dataprocess import load_user
 
 client = discord.Client()
