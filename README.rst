@@ -1,5 +1,5 @@
-.. image:: https://travis-ci.org/Gandus10/projetBot.svg?branch=master
-   :target: https://travis-ci.org/Gandus10/projetBot
+.. image:: https://travis-ci.org/Gandus10/NotesNot.svg?branch=master
+   :target: https://travis-ci.org/Gandus10/NotesNot
    :alt: Build Status
 
 Discord bot : Bot-notes
@@ -30,7 +30,7 @@ Installation
 Configuration
 -------------
 
-Discord TOKEN is read from environnement variable at ``TOKEN``. Make sure to add yours before running the bot.
+Discord TOKEN is read from environments variables at ``TOKEN``. Make sure to add yours before running the bot.
 
 Run
 ---
