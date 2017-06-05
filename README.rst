@@ -1,5 +1,5 @@
-.. image:: https://travis-ci.org/Gandus10/NotesNot.svg?branch=master
-   :target: https://travis-ci.org/Gandus10/NotesNot
+.. image:: https://travis-ci.org/Gandus10/NotesBot.svg?branch=master
+   :target: https://travis-ci.org/Gandus10/NotesBot
    :alt: Build Status
 
 Discord bot : Bot-notes
