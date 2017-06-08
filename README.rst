@@ -1,6 +1,11 @@
 .. image:: https://travis-ci.org/Gandus10/NotesBot.svg?branch=master
    :target: https://travis-ci.org/Gandus10/NotesBot
    :alt: Build Status
+   
+.. image:: https://readthedocs.org/projects/notesbot/badge/?version=latest
+   :target: http://notesbot.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+
 
 Discord bot : Bot-notes
 =======================
